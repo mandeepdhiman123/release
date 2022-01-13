@@ -47,8 +47,9 @@ jobs:
             sed -i 's/1.2.0-rc2-SNAPSHOT/1.2.0-rc2/g' $fullpath
           done
           
-      - name: Commit Changes 
-        uses: EndBug/add-and-commit@v7
+      - name: Commit Changes
+        run: cd ${{ matrix.names }}
+      - uses: EndBug/add-and-commit@v7
         with:
           default_author: github_actions
           message: 'added documentation for ${{ matrix.names }}'
