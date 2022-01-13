@@ -26,7 +26,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: mandeepdhiman123/${{ matrix.names }}
-          path: ${{ matrix.names }}
           ref: 1.2.0-rc2
           server-id: ossrh # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
@@ -37,7 +36,8 @@ jobs:
           echo "BRANCH_NAME=1.2.0-rc2" >> $GITHUB_ENV
 
       - name: Update Pom Files
-        run: |
+        run: | 
+          cd ${{ matrix.names }}
           for i in "$(find * -name pom.xml -exec readlink -f {} \;)"
           do
             fullpath=$i
