@@ -47,10 +47,8 @@ jobs:
             fullpath=$i
             echo "Updating file : $fullpath"
             sed -i 's/1.2.0-rc2-SNAPSHOT/1.2.0-rc2/g' $fullpath
-          done    
-      - uses: gr2m/create-or-update-pull-request-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          done
+      - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          path: "./${{ matrix.names }}"
-
+          commit_message: updated pom
+          
