@@ -36,7 +36,6 @@ jobs:
           # Strip git ref prefix from version
           echo "BRANCH_NAME=1.2.0-rc2" >> $GITHUB_ENV
 
-
       - name: Update Pom Files
         run: |
           for i in "$(find * -name pom.xml -exec readlink -f {} \;)"
@@ -44,10 +43,15 @@ jobs:
             fullpath=$i
             echo "Updating file : $fullpath"
             sed -i 's/1.2.0-rc2-SNAPSHOT/1.2.0-rc2/g' $fullpath
-            done
+          done
+          git commit -am "updated POM"
+        env:
+          GITHUB_TOKEN: ${{secrets.TOKEN}}
 
       - name: pull-request
         uses: repo-sync/pull-request@v2
         with:
           destination_branch: "1.2.0-rc2"
           github_token: ${{ secrets.TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{secrets.TOKEN}}
