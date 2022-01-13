@@ -47,9 +47,13 @@ jobs:
             echo "Updating file : $fullpath"
             sed -i 's/1.2.0-rc2-SNAPSHOT/1.2.0-rc2/g' $fullpath
           done
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: updated pom
-          repository: /home/runner/work/release/release/${{ matrix.names }}
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
+        with:
+          source-directory: '/home/runner/work/release/release/${{ matrix.names }}'
+          destination-github-username: 'mandeepdhiman123'
+          destination-repository-name: '${{ matrix.names }}'
+          user-email: mandeep.kumar@technoforte.co.in
+          target-branch: 1.2.0-rc2
