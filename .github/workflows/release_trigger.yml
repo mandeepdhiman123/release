@@ -15,8 +15,6 @@ jobs:
       matrix:
         #        names: [partner-management-service, registration, khazana, admin-services, resident-services, commons, audit-manager, pre-registration, print, id-authentication, mosip-openid-bridge, id-repository, durian, keymanager, packet-manager]
         names: [audit-manager]
-    env:
-      working-director: ${{ matrix.names }}
 
     steps:
       - name: Set up JDK 11
@@ -41,6 +39,7 @@ jobs:
 
       - name: Update Pom Files
         run: |
+          cd ${{ matrix.names }}
           pwd
           for i in "$(find * -name pom.xml -exec readlink -f {} \;)"
           do
