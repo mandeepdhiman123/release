@@ -37,7 +37,6 @@ jobs:
 
       - name: Update Pom Files
         run: | 
-          cd ${{ matrix.names }}
           for i in "$(find * -name pom.xml -exec readlink -f {} \;)"
           do
             fullpath=$i
