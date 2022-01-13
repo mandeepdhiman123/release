@@ -47,8 +47,9 @@ jobs:
             echo "Updating file : $fullpath"
             sed -i 's/1.2.0-rc2-SNAPSHOT/1.2.0-rc2/g' $fullpath
           done
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: gr2m/create-or-update-pull-request-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
-          commit_message: updated pom
-          repository: /home/runner/work/release/release/${{ matrix.names }}
-          
+          path: "/home/runner/work/release/release/${{ matrix.names }}"
+          commit-message: "Updated pom for release"  
