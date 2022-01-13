@@ -55,7 +55,8 @@ jobs:
           message: 'added documentation for ${{ matrix.names }}'
           
       - name: pull-request
-        uses: repo-sync/pull-request@v2
+        run: cd ${{ matrix.names }}
+      - uses: repo-sync/pull-request@v2
         with:
           destination_branch: "1.2.0-rc2"
           github_token: ${{ secrets.TOKEN }}
